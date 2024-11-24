@@ -1,3 +1,23 @@
+## Environment Variables Setup
+
+To configure the application, you need to create a `.env` file in the root directory of your project with the following variables:
+
+1. **VITE_PUBLIC_URL**: This variable defines the URL of your backend server. The application will use this URL as the base for all API requests.
+
+   Example:
+
+   ```env
+   VITE_PUBLIC_URL=http://localhost:8000
+   ```
+
+2. **VITE_USE_MOCK**: This variable determines whether the HTTP client will make actual requests to the backend server or not. Set this to true to enable mocking (useful for development or testing), or false to disable it and make real request.
+
+   Example:
+
+   ```env
+   VITE_USE_MOCK=true
+   ```
+
 ## Available Scripts
 
 In the project directory, you can run:

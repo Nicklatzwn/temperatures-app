@@ -12,9 +12,11 @@ const baseURL = import.meta.env.VITE_PUBLIC_URL;
 /**
  * Custom Axios instance for making HTTP requests.
  *
- * This module creates an Axios instance with a base URL sourced from
- * environment variables. It also configures a response interceptor
- * to handle errors uniformly across the application.
+ * This module creates a configured Axios instance with a base URL sourced
+ * from the environment variables. It also configures interceptors for
+ * handling requests and responses uniformly. The response interceptor
+ * ensures that errors are caught and handled consistently, while the request
+ * interceptor allows for mocking of specific endpoints during development.
  *
  * @module http
  * @see {@link https://axios-http.com/} for more details on Axios usage.

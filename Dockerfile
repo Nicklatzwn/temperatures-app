@@ -4,7 +4,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
-# Copy the .env file (this will allow Vite to load it)
+# Copy the .env file
 COPY .env .env
 # Install dependencies
 RUN npm install
