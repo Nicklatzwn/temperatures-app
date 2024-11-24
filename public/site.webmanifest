@@ -1,0 +1,14 @@
+{
+  "name": "Tesla",
+  "short_name": "Tesla",
+  "description": "Tesla Temperatures Dashboard",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
