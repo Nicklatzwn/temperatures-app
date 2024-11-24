@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import { FunctionComponent } from 'react';
 import { AppRoutes } from './routes';
-
 /**
  * Root Application Component
  *

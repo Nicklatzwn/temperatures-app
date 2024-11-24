@@ -1,4 +1,4 @@
-import { getTemperaturesData, isAnnual } from '@/store/temperatures';
+import { getTemperaturesData, isYearAxis } from '@/store/temperatures';
 import { useSelector } from 'react-redux';
 import { Box, useTheme } from '@mui/material';
 import { Line } from 'react-chartjs-2';
@@ -21,7 +21,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const ChartArea: FunctionComponent = (): JSX.Element => {
   const data = useSelector(getTemperaturesData);
-  const annual = useSelector(isAnnual);
+  const yearAxis = useSelector(isYearAxis);
   const theme = useTheme();
 
   const options: ChartOptions<'line'> = {
@@ -29,6 +29,7 @@ const ChartArea: FunctionComponent = (): JSX.Element => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
+        align: 'center',
         position: 'bottom',
         labels: {
           usePointStyle: true,
@@ -37,7 +38,7 @@ const ChartArea: FunctionComponent = (): JSX.Element => {
       },
       title: {
         display: true,
-        text: annual ? 'Yearly Average Temperatures' : 'Monthly Temperatures',
+        text: yearAxis ? 'Yearly Temperatures' : 'Monthly Temperatures',
         color: theme.palette.text.primary,
       },
       tooltip: {
@@ -48,7 +49,7 @@ const ChartArea: FunctionComponent = (): JSX.Element => {
             return `Temperature: ${temperature} °C`;
           },
           label: (tooltipItem) => {
-            const year = annual ? tooltipItem.label : tooltipItem.dataset.label;
+            const year = yearAxis ? tooltipItem.label : tooltipItem.dataset.label;
             return ` ${year}`;
           },
         },
@@ -88,7 +89,7 @@ const ChartArea: FunctionComponent = (): JSX.Element => {
       x: {
         title: {
           display: true,
-          text: annual ? 'Years' : 'Months',
+          text: yearAxis ? 'Years' : 'Months',
           color: theme.palette.text.primary,
         },
       },

@@ -12,7 +12,7 @@ import { IRequestTemperaturesData } from '@/models/requestInterfaces';
 const initialState: ITemperatureState = {
   data: [],
   year: null,
-  annual: false,
+  yearsAxis: false,
   filename: '',
   loading: false,
   error: '',
@@ -31,13 +31,13 @@ const temperaturesSlice = createSlice({
     setYear: (state, action: PayloadAction<number | null>) => {
       state.year = action.payload;
     },
-    setAnnual: (state, action: PayloadAction<boolean>) => {
-      state.annual = action.payload;
+    setYearAxis: (state, action: PayloadAction<boolean>) => {
+      state.yearsAxis = action.payload;
     },
     clear: (state) => {
       state.data = initialState.data;
       state.year = initialState.year;
-      state.annual = initialState.annual;
+      state.yearsAxis = initialState.yearsAxis;
       state.filename = initialState.filename;
       state.loading = initialState.loading;
       state.error = initialState.error;

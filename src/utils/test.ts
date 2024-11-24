@@ -1,8 +1,9 @@
-import { charactersMockData } from '@/mocks/charactersMockData';
+import { Endpoints } from '@/api/config/endpoints';
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [
-  http.get('*/character', () => {
-    return HttpResponse.json(charactersMockData);
+  http.post(`*/${Endpoints.temperatures}`, (value) => {
+    const data = value.request.body;
+    return HttpResponse.json(data);
   }),
 ];

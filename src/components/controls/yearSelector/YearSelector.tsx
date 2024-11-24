@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/store/store';
-import { getTemperaturesYears, getYear, setAnnual, setYear } from '@/store/temperatures';
+import { getTemperaturesYears, getYear, setYearAxis, setYear } from '@/store/temperatures';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
@@ -12,11 +12,11 @@ const YearSelector: FunctionComponent = (): JSX.Element => {
   const onChange = (e: SelectChangeEvent<number | null>) => {
     const value = Number(e.target.value) || null;
     dispatch(setYear(value));
-    dispatch(setAnnual(false));
+    dispatch(setYearAxis(false));
   };
 
   return (
-    <FormControl sx={{ minWidth: 200 }} size="small">
+    <FormControl fullWidth size="small">
       <InputLabel htmlFor="year-selector">Year</InputLabel>
       <Select
         disabled={!years.length}

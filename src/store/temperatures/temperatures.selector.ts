@@ -2,7 +2,7 @@ import { ITemperatureData } from '@/models/reusableInterfaces';
 import { RootState } from '../store';
 import { createSelector } from '@reduxjs/toolkit';
 import { ChartData, ChartDataset } from 'chart.js';
-import { generateRandomColor } from '@/utils';
+import { calculateMeanAndStd, generateRandomColor, getPointFields } from '@/utils';
 import { months } from '@/assets/consts';
 
 export const getTemperatures = (state: RootState): ITemperatureData[] => state.temperatures.data;
@@ -10,7 +10,7 @@ export const getTemperaturesFilename = (state: RootState): string => state.tempe
 export const isTemperaturesLoading = (state: RootState): boolean => state.temperatures.loading;
 export const getTemperaturesError = (state: RootState): string => state.temperatures.error;
 export const getYear = (state: RootState): number | null => state.temperatures.year;
-export const isAnnual = (state: RootState): boolean => state.temperatures.annual;
+export const isYearAxis = (state: RootState): boolean => state.temperatures.yearsAxis;
 
 export const hasTemperaturesData = createSelector([getTemperatures], (temperatures) => temperatures.length > 0);
 export const getTemperaturesYears = createSelector([getTemperatures], (temperatures) =>
@@ -20,36 +20,41 @@ export const getTemperaturesYear = createSelector([getTemperatures, getYear], (t
   year ? temperatures.filter((x) => x.Year === year) : null
 );
 export const getTemperaturesData = createSelector(
-  [getTemperatures, getTemperaturesYear, getTemperaturesYears, isAnnual],
-  (temperatures, temperaturesYear, temperaturesYears, annual) => {
+  [getTemperatures, getTemperaturesYear, getTemperaturesYears, isYearAxis],
+  (temperatures, temperaturesYear, temperaturesYears, yearAxis) => {
     const selectedTemperatures = temperaturesYear ?? temperatures;
-    const colorYearAverages = generateRandomColor();
-    const datasets: ChartDataset<'line'>[] = annual
+    const datasets: ChartDataset<'line'>[] = yearAxis
       ? [
           {
-            label: 'Yearly Averages (Annual)',
+            label: 'Yearly (Mean + 1s)',
+            data: selectedTemperatures.map(({ Year, Annual, ...monthTemps }) =>
+              Annual === null ? null : Annual + calculateMeanAndStd(Object.values(monthTemps), Annual)
+            ),
+            ...getPointFields(generateRandomColor()),
+          },
+          {
+            label: 'Yearly (Mean)',
             data: selectedTemperatures.map((x) => x.Annual),
-            borderColor: colorYearAverages,
-            backgroundColor: colorYearAverages,
-            borderWidth: 0.5,
-            hoverBorderWidth: 2,
-          } as ChartDataset<'line'>,
+            ...getPointFields(generateRandomColor()),
+          },
+          {
+            label: 'Yearly (Mean - 1s)',
+            data: selectedTemperatures.map(({ Year, Annual, ...monthTemps }) =>
+              Annual === null ? null : Annual - calculateMeanAndStd(Object.values(monthTemps), Annual)
+            ),
+            ...getPointFields(generateRandomColor()),
+          },
         ]
-      : selectedTemperatures.map((yearData) => {
-          const { Year, Annual, ...monthTemps } = yearData;
-          const color = generateRandomColor();
-          const point: ChartDataset<'line'> = {
-            label: Year?.toString(),
-            data: annual ? [Annual] : Object.values(monthTemps),
-            borderColor: color,
-            backgroundColor: color,
-            borderWidth: 0.5,
-            hoverBorderWidth: 2,
-          };
-          return point;
-        });
+      : selectedTemperatures.map(({ Year, Annual, ...monthTemps }) => ({
+          label: Year?.toString(),
+          data: Object.values(monthTemps),
+          ...getPointFields(generateRandomColor()),
+        }));
+
+    const labels: number[] | string[] = yearAxis ? temperaturesYears : months;
+
     const data: ChartData<'line'> = {
-      labels: annual ? temperaturesYears : months,
+      labels,
       datasets,
     };
     return data;
