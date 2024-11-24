@@ -26,19 +26,19 @@ export const getTemperaturesData = createSelector(
     const datasets: ChartDataset<'line'>[] = yearAxis
       ? [
           {
-            label: 'Yearly (Mean + 1s)',
+            label: 'Mean + 1s',
             data: selectedTemperatures.map(({ Year, Annual, ...monthTemps }) =>
               Annual === null ? null : Annual + calculateMeanAndStd(Object.values(monthTemps), Annual)
             ),
             ...getPointFields(generateRandomColor()),
           },
           {
-            label: 'Yearly (Mean)',
+            label: 'Mean',
             data: selectedTemperatures.map((x) => x.Annual),
             ...getPointFields(generateRandomColor()),
           },
           {
-            label: 'Yearly (Mean - 1s)',
+            label: 'Mean - 1s',
             data: selectedTemperatures.map(({ Year, Annual, ...monthTemps }) =>
               Annual === null ? null : Annual - calculateMeanAndStd(Object.values(monthTemps), Annual)
             ),

@@ -14,7 +14,6 @@ import {
   ChartOptions,
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { months } from '@/assets/consts';
 import { FunctionComponent } from 'react';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, zoomPlugin);
@@ -76,7 +75,7 @@ const ChartArea: FunctionComponent = (): JSX.Element => {
         limits: {
           x: {
             min: 0,
-            max: months.length - 1,
+            max: (data.labels || []).length - 1,
             minRange: 2,
           },
         },
