@@ -1,6 +1,6 @@
 import { getTemperaturesData, isYearAxis } from '@/store/temperatures';
 import { useSelector } from 'react-redux';
-import { Box, useTheme } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -22,15 +22,26 @@ const ChartArea: FunctionComponent = (): JSX.Element => {
   const data = useSelector(getTemperaturesData);
   const yearAxis = useSelector(isYearAxis);
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: {
+        bottom: 20,
+      },
+    },
     plugins: {
       legend: {
+        display: !isMobile,
         align: 'center',
         position: 'bottom',
         labels: {
+          padding: 7,
+          font: {
+            size: 10,
+          },
           usePointStyle: true,
           color: theme.palette.text.primary,
         },

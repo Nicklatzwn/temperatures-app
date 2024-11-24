@@ -42,7 +42,7 @@ const Dashboard: FunctionComponent = (): JSX.Element => {
     <Stack height="100%" padding={2}>
       <Card sx={cardStyles} variant="outlined">
         <CardHeader
-          title="Temperatures Dashboard"
+          title="Temperatures"
           action={
             temperaturesLoading ? <CircularProgress /> : <IconButton children={<RestartAltIcon />} onClick={onReset} />
           }
@@ -53,7 +53,7 @@ const Dashboard: FunctionComponent = (): JSX.Element => {
         </CardContent>
       </Card>
       <Snackbar open={!!temperaturesError} onClose={() => dispatch(clearError())}>
-        <Alert severity="error" variant="filled" sx={{ width: '100%' }}>
+        <Alert severity="error" variant="filled">
           {temperaturesError}
         </Alert>
       </Snackbar>
