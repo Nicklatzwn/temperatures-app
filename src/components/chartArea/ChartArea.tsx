@@ -18,6 +18,20 @@ import { FunctionComponent } from 'react';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, zoomPlugin);
 
+/**
+ * @component ChartArea
+ * @returns {JSX.Element} A responsive and interactive line chart visualization.
+ * @description
+ * A responsive line chart component for visualizing temperature data. The chart dynamically
+ * adjusts its display based on the screen size and provides interactive features like
+ * zooming and panning. It supports both yearly and monthly temperature data visualization
+ * depending on the selected axis.
+ * @features
+ * - **Zoom and Pan**: Use mouse wheel or drag gestures to zoom and pan through the data.
+ * - **Dynamic Tooltip**: Displays detailed temperature and year/month information on hover.
+ * - **Mobile-Optimized**: Adjusts the legend display and layout for smaller screens.
+ * - **Custom Styling**: Adapts colors and fonts to the Material-UI theme.
+ */
 const ChartArea: FunctionComponent = (): JSX.Element => {
   const data = useSelector(getTemperaturesData);
   const yearAxis = useSelector(isYearAxis);

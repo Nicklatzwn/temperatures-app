@@ -5,7 +5,9 @@ import { postTemperatures } from '@/api/temperatures/temperatures';
 import { IRequestTemperaturesData } from '@/models/requestInterfaces';
 
 /**
- * Initial state for the characters slice.
+ * Initial state for the temperatures slice.
+ *
+ * Represents the default structure of the state managed by this slice.
  *
  * @constant {ITemperatureState}
  */
@@ -18,6 +20,12 @@ const initialState: ITemperatureState = {
   error: '',
 };
 
+/**
+ * Redux slice for managing temperature-related state and actions.
+ *
+ * This slice encapsulates all logic for handling temperature data, including
+ * state management, synchronous actions, and asynchronous side effects.
+ */
 const temperaturesSlice = createSlice({
   name: 'temperatures',
   initialState,
@@ -60,6 +68,14 @@ const temperaturesSlice = createSlice({
   },
 });
 
+/**
+ * Async thunk to post temperature data to the server.
+ *
+ * Dispatches actions for pending, fulfilled, and rejected states.
+ *
+ * @param {IRequestTemperaturesData} param - The request data containing the file content and metadata.
+ * @returns {Promise<IResponseTemperatureData>} A promise resolving to the response data.
+ */
 export const postTemperaturesData = createAsyncThunk<IResponseTemperatureData, IRequestTemperaturesData>(
   'post-temperatures-data',
   ({ data }) => postTemperatures(data)
@@ -67,6 +83,9 @@ export const postTemperaturesData = createAsyncThunk<IResponseTemperatureData, I
 
 /**
  * Exports the reducer and actions from the temperatures slice.
+ *
+ * The `temperaturesReducer` is used to configure the Redux store.
+ * The `temperaturesActions` provide access to all defined action creators.
  *
  * @constant {Object}
  */

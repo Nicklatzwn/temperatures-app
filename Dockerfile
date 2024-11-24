@@ -4,9 +4,8 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
-# Set enviroment variable for Vite public URL
-ARG VITE_PUBLIC_URL
-ENV VITE_PUBLIC_URL=$VITE_PUBLIC_URL
+# Copy the .env file (this will allow Vite to load it)
+COPY .env .env
 # Install dependencies
 RUN npm install
 # Copy the rest of the application code
@@ -23,5 +22,5 @@ EXPOSE 80
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
 
-# docker build -t temperatures-app --build-arg VITE_PUBLIC_URL=http://localhost:8000 .
+# docker build -t temperatures-app .
 # docker run --name temperatures-app -p 3000:80 temperatures-app
