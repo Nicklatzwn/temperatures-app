@@ -32,6 +32,7 @@ http.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+console.log(import.meta.env);
 
 http.interceptors.request.use((config) => {
   if (import.meta.env.VITE_USE_MOCK === 'true' && config.url === Endpoints.temperatures) {
