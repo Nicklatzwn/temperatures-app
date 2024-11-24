@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ITemperatureState } from '@/models/reusableInterfaces/ITemperatureState';
-import { IResponseTemperatureData } from '@/models/responseInterfaces/IResponseTemperatureData';
+import { ITemperatureState } from '@/models/reusableInterfaces';
+import { IResponseTemperatureData } from '@/models/responseInterfaces';
 import { postTemperatures } from '@/api/temperatures/temperatures';
 import { IRequestTemperaturesData } from '@/models/requestInterfaces';
 

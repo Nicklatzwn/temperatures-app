@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { temperaturesReducer } from './temperatures/temperaturesSlice';
+import { temperaturesReducer } from './temperatures';
 
 const rootReducer = combineReducers({
   temperatures: temperaturesReducer,

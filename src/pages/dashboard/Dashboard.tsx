@@ -20,8 +20,8 @@ import {
   isTemperaturesLoading,
 } from '@/store/temperatures';
 import { useAppDispatch } from '@/store/store';
-import ChartArea from '@/components/chartArea/ChartArea';
-import Controls from '@/components/controls/Controls';
+import { ChartArea } from '@/components/chartArea';
+import { Controls } from '@/components/controls';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const Dashboard: FunctionComponent = (): JSX.Element => {
@@ -44,7 +44,13 @@ const Dashboard: FunctionComponent = (): JSX.Element => {
         <CardHeader
           title="Temperatures"
           action={
-            temperaturesLoading ? <CircularProgress /> : <IconButton children={<RestartAltIcon />} onClick={onReset} />
+            temperaturesLoading ? (
+              <Stack padding={1}>
+                <CircularProgress size={20} />
+              </Stack>
+            ) : (
+              <IconButton children={<RestartAltIcon />} onClick={onReset} />
+            )
           }
         />
         <CardContent sx={cardStyles}>

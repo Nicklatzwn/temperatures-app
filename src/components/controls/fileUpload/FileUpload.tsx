@@ -3,9 +3,9 @@ import { FunctionComponent } from 'react';
 import React from 'react';
 import { CloudUpload } from '@mui/icons-material';
 import { EColumns } from '@/models/reusableEnums';
-import { ITemperatureData } from '@/models/reusableInterfaces/ITemperatureData';
+import { ITemperatureData } from '@/models/reusableInterfaces';
 import { useAppDispatch } from '@/store/store';
-import { postTemperaturesData } from '@/store/temperatures/temperaturesSlice';
+import { postTemperaturesData } from '@/store/temperatures';
 import { useSelector } from 'react-redux';
 import { getTemperaturesFilename, setError } from '@/store/temperatures';
 import { columns } from '@/assets/consts';
@@ -24,11 +24,12 @@ const FileUpload: FunctionComponent = (): JSX.Element => {
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      let fileContent = e.target?.result;
+      const fileContent = e.target?.result
+        ? e.target.result instanceof ArrayBuffer
+          ? new TextDecoder().decode(e.target.result)
+          : e.target.result
+        : null;
       if (!fileContent) return;
-      if (fileContent instanceof ArrayBuffer) {
-        fileContent = new TextDecoder().decode(fileContent);
-      }
       const rows = fileContent.split('\n').filter((row) => row.trim().length);
       const headers = rows[0]
         .split(',')

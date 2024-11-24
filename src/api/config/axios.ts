@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Endpoints } from './endpoints';
 
 /**
  * The base URL for all HTTP requests.
@@ -31,6 +32,24 @@ http.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+http.interceptors.request.use((config) => {
+  if (import.meta.env.VITE_USE_MOCK === 'true' && config.url === Endpoints.temperatures) {
+    return {
+      ...config,
+      adapter: async () => {
+        return {
+          data: { data: config.data },
+          status: 200,
+          statusText: 'OK',
+          headers: {},
+          config,
+        };
+      },
+    };
+  }
+  return config;
+});
 
 /**
  * The configured Axios instance.

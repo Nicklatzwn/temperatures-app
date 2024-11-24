@@ -114,7 +114,7 @@ const ChartArea: FunctionComponent = (): JSX.Element => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box flexGrow={1}>
       <Line data={data} options={options} />
     </Box>
   );
