@@ -30,8 +30,17 @@ const TypeSelector: FunctionComponent = (): JSX.Element => {
 
   return (
     <FormControl fullWidth size="small">
-      <InputLabel htmlFor="year-monthly-selector">Type</InputLabel>
-      <Select size="small" id="year-monthly-selector" label="Type" value={Number(yearAxis)} onChange={onChange}>
+      <InputLabel htmlFor="year-monthly-selector" id="year-monthly-selector">
+        Type
+      </InputLabel>
+      <Select
+        size="small"
+        labelId="year-monthly-selector"
+        id="year-monthly-selector"
+        label="Type"
+        value={Number(yearAxis)}
+        onChange={onChange}
+      >
         <MenuItem value={0}>Monthly</MenuItem>
         <MenuItem value={1}>Yearly</MenuItem>
       </Select>

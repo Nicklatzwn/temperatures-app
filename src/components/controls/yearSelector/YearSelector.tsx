@@ -35,7 +35,9 @@ const YearSelector: FunctionComponent = (): JSX.Element => {
 
   return (
     <FormControl fullWidth size="small">
-      <InputLabel htmlFor="year-selector">Year</InputLabel>
+      <InputLabel htmlFor="year-selector" id="year-selector">
+        Year
+      </InputLabel>
       <Select
         disabled={!years.length}
         size="small"

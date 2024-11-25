@@ -30,7 +30,8 @@ http.interceptors.response.use(
     return response;
   },
   (err) => {
-    const error: string = (err as any)?.message?.toString() || 'Error';
+    const error: string =
+      (err as any)?.response?.data?.error?.message?.toString() || (err as any)?.message?.toString() || 'Error';
     return Promise.reject(error);
   }
 );

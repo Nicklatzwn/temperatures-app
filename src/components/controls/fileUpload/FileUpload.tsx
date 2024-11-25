@@ -113,7 +113,15 @@ const FileUpload: FunctionComponent = (): JSX.Element => {
         value={filename}
         placeholder="Select a file..."
       />
-      <input ref={fileInputRef} type="file" accept=".csv" multiple={false} onChange={handleFileChange} hidden />
+      <input
+        data-testid="file-input"
+        ref={fileInputRef}
+        type="file"
+        accept=".csv"
+        multiple={false}
+        onChange={handleFileChange}
+        hidden
+      />
     </FormControl>
   );
 };
