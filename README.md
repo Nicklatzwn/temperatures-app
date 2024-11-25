@@ -60,7 +60,6 @@ Builds the app for production or local development to the `dist` folder.<br />
 
 ## Server Setup
 
-The server is a simple flask application under the `server` folder. Create a `venv` and install the requirements from the `requirements.txt` file.<br />
-The server will be open on [http://localhost:5000](http://localhost:5000) by running the following script.
+The server is a simple flask application under the `server` folder. Create a `venv` and install the requirements from the `requirements.txt` file. The server will be open on [http://localhost:5000](http://localhost:5000) by running the following script.
 
 ### `python server.py`
